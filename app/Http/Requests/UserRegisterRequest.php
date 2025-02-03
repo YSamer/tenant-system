@@ -27,10 +27,7 @@ class UserRegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:50', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
-            // tenant data
-            'tenant_name' => ['required', 'string', 'max:50', 'unique:tenants,name'],
-            'tenant_domain' => ['required', 'string', 'max:50', 'unique:tenants,domain'],
-            'tenant_database' => ['required', 'string', 'max:50', 'unique:tenants,database'],
+            'shop_name' => ['required', 'string', 'max:10', 'unique:tenants,name'],
         ];
     }
 }

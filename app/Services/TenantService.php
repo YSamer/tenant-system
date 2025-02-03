@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class TenantService
 {
@@ -61,15 +62,15 @@ class TenantService
     }
 
     // Create Tenant Data and Migrate tenant tables
-    public function createTenant($userId, $name, $domain, $database)
+    public function createTenant($userId, $shop_name)
     {
-        $db_name = "tenant-{$database}";
+        $db_name = "tenant-{$shop_name}";
         try {
             DB::beginTransaction();
             $tenant = Tenant::createOrFirst([
                 'user_id' => $userId,
-                'name' => $name,
-                'domain' => $domain,
+                'name' => $shop_name,
+                'domain' => $shop_name,
                 'database' => $db_name,
             ]);
 
@@ -82,7 +83,8 @@ class TenantService
 
             DB::commit();
             return $tenant;
-        } catch (QueryException $e) {
+        } catch (\Exception $e) {
+            Log::error('Failed to tenant', ['error' => $e->getMessage()]);
             DB::rollback();
             return false;
         }

@@ -70,7 +70,7 @@ class TenantService
             $tenant = Tenant::createOrFirst([
                 'user_id' => $userId,
                 'name' => $shop_name,
-                'domain' => $shop_name,
+                'domain' => $shop_name . '.' . env('APP_HOST'),
                 'database' => $db_name,
             ]);
 

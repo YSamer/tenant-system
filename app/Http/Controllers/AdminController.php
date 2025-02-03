@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function users()
     {
-        $users = User::paginate(15);
+        $users = User::where('role', 'user')->paginate(15);
         return Inertia::render('Admin/Users/Index', ['users' => $users]);
     }
 }

@@ -21,7 +21,7 @@ export default function AdminDashboard() {
                                 href="/admin/users"
                                 className="text-blue-500 hover:underline"
                             >
-                                Go to Users Page
+                                Go to Merchant List Page
                             </Link>
                         </div>
                     </div>

@@ -22,8 +22,8 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
-    public function tenants()
+    public function tenant()
     {
-        return $this->hasMany(Tenant::class);
+        return $this->hasOne(Tenant::class);
     }
 }

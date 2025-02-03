@@ -21,9 +21,12 @@ class TenantMiddleware
         $host = $request->getHost();
         $user = $request->user();
 
+
         $tenant = Cache::remember("tenant_{$host}", 600, function () use ($host) {
             return Tenant::where('domain', $host)->first();
         });
+
+        // dd($tenant);
 
         if (!$tenant || $host === env('APP_HOST') || $host === '127.0.0.1' || $host === 'localhost') {
             FacadesTenants::switchToSystem();

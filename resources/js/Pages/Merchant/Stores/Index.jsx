@@ -1,27 +1,31 @@
 import Pagination from "@/Components/Pagination";
-import AdminAuthenticatedLayout from "@/Layouts/AdminAuthenticatedLayout";
-import { Head } from "@inertiajs/react";
-import { format } from "date-fns";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head, Link } from "@inertiajs/react";
 
-export default function Users({ users }) {
-    console.log(users);
+export default function Index({ stores }) {
+    console.log(stores);
     return (
-        <AdminAuthenticatedLayout
+        <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Merchant List
+                    Stores
                 </h2>
             }
         >
-            <Head title="Merchant List" />
-
+            <Head title="Stores" />
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             <h2 className="text-xl font-semibold leading-tight text-gray-800 mb-6">
-                                Merchant List
+                                Store List
                             </h2>
+                            <Link
+                                href={route("merchant.stores.create")}
+                                className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
+                            >
+                                Create Store
+                            </Link>
 
                             <table className="min-w-full table-auto">
                                 <thead>
@@ -30,39 +34,31 @@ export default function Users({ users }) {
                                             Name
                                         </th>
                                         <th className="px-4 py-2 text-left">
-                                            Email
-                                        </th>
-                                        <th className="px-4 py-2 text-left">
                                             Created At
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {users.data.map((user) => (
-                                        <tr key={user.id}>
+                                    {stores?.data?.map((store) => (
+                                        <tr key={store.id}>
                                             <td className="border px-4 py-2">
-                                                {user.name}
+                                                {store.name}
                                             </td>
                                             <td className="border px-4 py-2">
-                                                {user.email}
-                                            </td>
-                                            <td className="border px-4 py-2">
-                                                {format(
-                                                    new Date(user.created_at),
-                                                    "MM/dd/yyyy HH:mm"
-                                                )}
+                                                {new Date(
+                                                    store.created_at
+                                                ).toLocaleDateString()}
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-
                             {/* Pagination Controls */}
-                            <Pagination links={users?.links || []} />
+                            <Pagination links={stores?.links || []} />
                         </div>
                     </div>
                 </div>
             </div>
-        </AdminAuthenticatedLayout>
+        </AuthenticatedLayout>
     );
 }

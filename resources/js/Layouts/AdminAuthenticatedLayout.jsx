@@ -34,7 +34,7 @@ export default function AdminAuthenticatedLayout({ header, children }) {
                                     href={route("admin.users")}
                                     active={route().current("admin.users")}
                                 >
-                                    Users
+                                    Merchant List
                                 </NavLink>
                             </div>
                         </div>
